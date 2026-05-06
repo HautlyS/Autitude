@@ -1,8 +1,8 @@
 <template>
-  <div class="faq" ref="faqContainer">
-    <section class="section hero-section">
+  <div class="faq">
+    <section class="hero-section">
       <div class="container">
-        <div class="section-title" ref="faqTitle">
+        <div class="section-title">
           <span class="section-tag">Perguntas Frequentes</span>
           <h2>O que Voce Precisa Saber</h2>
           <p>Tire suas duvidas sobre Terapia Ocupacional e Integracao Sensorial.</p>
@@ -16,7 +16,6 @@
             :class="{ active: activeCategory === category.id }"
             @click="activeCategory = category.id"
           >
-            <div class="category-icon"></div>
             {{ category.name }}
           </button>
         </div>
@@ -32,7 +31,9 @@
             <div class="faq-question">
               <span class="faq-number">{{ index + 1 }}</span>
               <h3>{{ faq.question }}</h3>
-              <span class="faq-arrow">▼</span>
+              <div class="faq-toggle">
+                <span></span>
+              </div>
             </div>
             <div class="faq-answer" v-show="openFaq === index">
               <p>{{ faq.answer }}</p>
@@ -42,14 +43,14 @@
       </div>
     </section>
 
-    <section class="sensory-section section" ref="sensorySection">
+    <section class="sensory-section section">
       <div class="container">
         <div class="section-title">
           <span class="section-tag">Especialidade</span>
           <h2>O que e Integracao Sensorial?</h2>
         </div>
         
-        <div class="sensory-content">
+        <div class="sensory-showcase">
           <div class="sensory-text">
             <p>
               A <strong>Integracao Sensorial</strong> e uma abordagem terapeutica desenvolvida pela Dra. Jean Ayres, 
@@ -83,9 +84,11 @@
 
         <div class="sensory-approach">
           <h3>Abordagem Terapeutica</h3>
-          <div class="approach-steps">
+          <div class="approach-grid">
             <div class="approach-step" v-for="step in sensoryApproach" :key="step.title">
-              <div class="step-icon"></div>
+              <div class="step-icon">
+                <div class="step-icon-inner"></div>
+              </div>
               <h4>{{ step.title }}</h4>
               <p>{{ step.description }}</p>
             </div>
@@ -94,16 +97,18 @@
       </div>
     </section>
 
-    <section class="cta section" ref="ctaSection">
+    <section class="cta-section section">
       <div class="container">
-        <div class="cta-content">
-          <h2>Ainda tem duvidas?</h2>
-          <p>Entre em contato conosco para saber como podemos ajudar seu filho.</p>
-          <div class="cta-buttons">
-            <router-link to="/agendar" class="btn btn-primary">Agendar Avaliacao</router-link>
-            <a href="https://wa.me/5512991968683" class="btn btn-whatsapp" target="_blank">
-              Falar no WhatsApp
-            </a>
+        <div class="cta-card">
+          <div class="cta-content">
+            <h2>Ainda tem duvidas?</h2>
+            <p>Entre em contato conosco para saber como podemos ajudar seu filho.</p>
+            <div class="cta-buttons">
+              <router-link to="/agendar" class="btn btn-primary btn-lg">Agendar Avaliacao</router-link>
+              <a href="https://wa.me/5512991968683" class="btn btn-whatsapp btn-lg" target="_blank">
+                Falar no WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -112,21 +117,11 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { ref, computed } from 'vue'
 
 export default {
   name: 'FaqView',
   setup() {
-    const faqContainer = ref(null)
-    const faqTitle = ref(null)
-    const sensorySection = ref(null)
-    const ctaSection = ref(null)
-    let gsapCtx = null
-
     const activeCategory = ref('all')
     const openFaq = ref(null)
 
@@ -244,82 +239,7 @@ export default {
       openFaq.value = openFaq.value === index ? null : index
     }
 
-    onMounted(() => {
-      gsapCtx = gsap.context(() => {
-        gsap.from(faqTitle.value, {
-          scrollTrigger: {
-            trigger: faqTitle.value,
-            start: 'top 80%'
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.8
-        })
-
-        gsap.from('.category-btn', {
-          scrollTrigger: {
-            trigger: '.faq-categories',
-            start: 'top 85%'
-          },
-          y: 20,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.1
-        })
-
-        gsap.from('.faq-item', {
-          scrollTrigger: {
-            trigger: '.faq-list',
-            start: 'top 85%'
-          },
-          y: 30,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.1
-        })
-
-        gsap.from('.sensory-content', {
-          scrollTrigger: {
-            trigger: sensorySection.value,
-            start: 'top 80%'
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.8
-        })
-
-        gsap.from('.approach-step', {
-          scrollTrigger: {
-            trigger: '.approach-steps',
-            start: 'top 85%'
-          },
-          y: 30,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.15
-        })
-
-        gsap.from('.cta-content', {
-          scrollTrigger: {
-            trigger: ctaSection.value,
-            start: 'top 80%'
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.8
-        })
-      }, faqContainer.value)
-    })
-
-    onUnmounted(() => {
-      if (gsapCtx) gsapCtx.revert()
-    })
-
     return {
-      faqContainer,
-      faqTitle,
-      sensorySection,
-      ctaSection,
       activeCategory,
       openFaq,
       categories,
@@ -332,20 +252,14 @@ export default {
 </script>
 
 <style scoped>
-.section-tag {
-  display: inline-block;
-  background: var(--lilac);
-  color: white;
-  padding: 0.3rem clamp(0.75rem, 2vw, 1rem);
-  border-radius: var(--radius-full);
-  font-size: clamp(0.75rem, 2vw, 0.85rem);
-  font-weight: 500;
-  margin-bottom: 1rem;
+.hero-section {
+  padding-top: 140px;
+  padding-bottom: 4rem;
 }
 
 .section-title {
   text-align: center;
-  margin-bottom: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 2.5rem;
 }
 
 .section-title h2 {
@@ -356,128 +270,160 @@ export default {
   opacity: 0.8;
 }
 
+.section-tag {
+  display: inline-block;
+  background: var(--pastel-lavender);
+  color: var(--primary-dark);
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
 .faq-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(0.5rem, 2vw, 0.75rem);
+  gap: 0.75rem;
   justify-content: center;
-  margin-bottom: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 2rem;
 }
 
 .category-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
-  background: rgba(255, 255, 255, 0.7);
-  border: 2px solid transparent;
+  padding: 0.625rem 1.25rem;
+  background: var(--surface);
+  border: 2px solid var(--pastel-lavender);
   border-radius: var(--radius-full);
-  font-size: clamp(0.8rem, 2vw, 0.95rem);
+  font-size: 0.9375rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .category-btn:hover {
-  background: white;
+  border-color: var(--primary-light);
 }
 
 .category-btn.active {
-  background: var(--lilac);
-  color: white;
-}
-
-.category-icon {
-  width: 16px;
-  height: 16px;
   background: var(--primary);
-  border-radius: 4px;
-  opacity: 0.5;
+  color: white;
+  border-color: var(--primary);
 }
 
 .faq-list {
-  max-width: clamp(300px, 80vw, 800px);
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .faq-item {
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: var(--radius-medium);
-  margin-bottom: clamp(0.75rem, 2vw, 1rem);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  margin-bottom: 0.75rem;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .faq-item:hover {
-  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
 }
 
 .faq-item.open {
-  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-md);
 }
 
 .faq-question {
   display: flex;
   align-items: center;
-  gap: clamp(0.75rem, 2vw, 1rem);
-  padding: clamp(1rem, 3vw, 1.5rem);
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
 }
 
 .faq-number {
+  width: 32px;
+  height: 32px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(28px, 6vw, 32px);
-  height: clamp(28px, 6vw, 32px);
-  background: var(--lilac);
-  color: white;
-  border-radius: 50%;
-  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  font-size: 0.8125rem;
   font-weight: 600;
   flex-shrink: 0;
 }
 
 .faq-question h3 {
   flex: 1;
-  font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+  font-size: 1rem;
   font-weight: 600;
 }
 
-.faq-arrow {
-  font-size: clamp(0.75rem, 2vw, 0.9rem);
+.faq-toggle {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.faq-toggle::before,
+.faq-toggle::after {
+  content: '';
+  position: absolute;
+  background: var(--text-light);
+  border-radius: 2px;
   transition: transform 0.3s ease;
 }
 
-.faq-item.open .faq-arrow {
-  transform: rotate(180deg);
+.faq-toggle::before {
+  width: 12px;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.faq-toggle::after {
+  width: 2px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.faq-item.open .faq-toggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
 }
 
 .faq-answer {
-  padding: 0 clamp(1rem, 3vw, 1.5rem) clamp(1rem, 3vw, 1.5rem);
-  padding-bottom: clamp(1rem, 3vw, 1.5rem);
+  padding: 0 1.5rem 1.25rem;
+  padding-left: calc(1.5rem + 32px + 1rem);
 }
 
 .faq-answer p {
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-size: 0.9375rem;
   line-height: 1.7;
-  opacity: 0.85;
+  color: var(--text-secondary);
 }
 
 .sensory-section {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(195, 177, 225, 0.1));
+  background: var(--surface);
 }
 
-.sensory-content {
+.sensory-showcase {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 45vw, 400px), 1fr));
-  gap: clamp(1.5rem, 5vw, 2.5rem);
-  margin-bottom: clamp(2rem, 5vw, 3rem);
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sensory-text p {
   margin-bottom: 1rem;
   line-height: 1.7;
-  opacity: 0.85;
+  color: var(--text-secondary);
 }
 
 .sensory-text h3 {
@@ -485,9 +431,9 @@ export default {
 }
 
 .sensory-signs {
-  background: rgba(255, 255, 255, 0.7);
-  padding: clamp(1.25rem, 4vw, 2rem);
-  border-radius: var(--radius-medium);
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
 }
 
 .sensory-signs h3 {
@@ -500,8 +446,8 @@ export default {
 
 .sensory-signs li {
   padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  border-bottom: 1px solid rgba(155, 126, 217, 0.08);
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
@@ -510,77 +456,104 @@ export default {
 }
 
 .sensory-signs li strong {
-  color: var(--lilac);
+  color: var(--primary);
 }
 
 .sensory-approach {
-  margin-top: clamp(2rem, 5vw, 3rem);
+  text-align: center;
 }
 
 .sensory-approach h3 {
-  text-align: center;
-  margin-bottom: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 2rem;
 }
 
-.approach-steps {
+.approach-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 30vw, 220px), 1fr));
-  gap: clamp(1rem, 3vw, 1.5rem);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .approach-step {
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
   text-align: center;
-  background: rgba(255, 255, 255, 0.7);
-  padding: clamp(1.25rem, 4vw, 2rem);
-  border-radius: var(--radius-medium);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .approach-step:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
 .step-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--primary-light);
-  border-radius: 50%;
-  margin: 0 auto 0.75rem;
+  width: 48px;
+  height: 48px;
+  background: var(--pastel-lavender);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.step-icon-inner {
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 6px;
+  opacity: 0.5;
 }
 
 .approach-step h4 {
   margin-bottom: 0.5rem;
+  font-size: 1rem;
 }
 
 .approach-step p {
-  font-size: clamp(0.8rem, 2vw, 0.85rem);
-  opacity: 0.8;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
 }
 
-.cta-content {
+.cta-section {
+  background: var(--background);
+}
+
+.cta-card {
+  background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-mint) 100%);
+  border-radius: var(--radius-2xl);
+  padding: 3rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.7);
-  padding: clamp(2rem, 6vw, 3rem);
-  border-radius: var(--radius-large);
 }
 
-.cta h2 {
+.cta-content h2 {
   margin-bottom: 0.75rem;
 }
 
-.cta p {
-  margin-bottom: clamp(1.5rem, 4vw, 2rem);
-  opacity: 0.8;
+.cta-content p {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
 }
 
 .cta-buttons {
   display: flex;
-  gap: clamp(0.75rem, 3vw, 1rem);
   justify-content: center;
-  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .sensory-showcase {
+    grid-template-columns: 1fr;
+  }
+  
+  .approach-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
   .faq-categories {
     justify-content: flex-start;
     overflow-x: auto;
@@ -590,6 +563,18 @@ export default {
   
   .category-btn {
     flex-shrink: 0;
+  }
+  
+  .approach-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+  }
+  
+  .cta-buttons .btn {
+    width: 100%;
   }
 }
 </style>

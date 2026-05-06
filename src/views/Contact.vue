@@ -1,23 +1,23 @@
 <template>
   <div class="contact">
-    <section class="section hero-section">
+    <section class="hero-section">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Contato</span>
           <h1>Fale conosco</h1>
-          <p>Estamos prontos para atender você e sua família.</p>
+          <p>Estamos prontos para atender voce e sua familia.</p>
         </div>
 
-        <div class="contact-grid">
-          <div class="contact-info">
+        <div class="contact-showcase">
+          <div class="contact-info-cards">
             <div class="info-card" v-for="info in contactInfo" :key="info.title">
-              <div class="info-icon" :style="{ background: info.color }">
-                <div class="icon-box"></div>
+              <div class="card-icon-wrapper" :style="{ background: info.color }">
+                <div class="card-icon-inner"></div>
               </div>
-              <div class="info-content">
+              <div class="card-text">
                 <h3>{{ info.title }}</h3>
-                <p>{{ info.content }}</p>
-                <p v-if="info.detail" class="info-detail">{{ info.detail }}</p>
+                <p class="primary-text">{{ info.content }}</p>
+                <p v-if="info.detail" class="secondary-text">{{ info.detail }}</p>
                 <a 
                   v-if="info.link" 
                   :href="info.link" 
@@ -32,10 +32,11 @@
           </div>
 
           <div class="contact-form-wrapper">
-            <form class="contact-form" @submit.prevent="handleSubmit">
+            <div class="form-header">
               <h3>Envie uma mensagem</h3>
-              <p class="form-subtitle">Respondemos em até 24 horas.</p>
-              
+              <p>Respondemos em ate 24 horas.</p>
+            </div>
+            <form class="contact-form" @submit.prevent="handleSubmit">
               <div class="form-group">
                 <label class="form-label" for="name">Nome *</label>
                 <input
@@ -81,11 +82,11 @@
                   v-model="form.message"
                   required
                   placeholder="Como podemos ajudar?"
-                  rows="4"
+                  rows="5"
                 ></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-submit">
+              <button type="submit" class="btn btn-primary btn-lg btn-submit">
                 Enviar Mensagem
               </button>
             </form>
@@ -94,12 +95,27 @@
       </div>
     </section>
 
-    <section class="map-section section">
+    <section class="location-section section">
       <div class="container">
-        <div class="map-placeholder">
-          <div class="map-icon"></div>
-          <p>Rua Major Jose dos Santos Moreira, 328</p>
-          <small>Pindamonhangaba, SP</small>
+        <div class="location-card">
+          <div class="location-content">
+            <div class="location-icon">
+              <div class="icon-shape"></div>
+            </div>
+            <div class="location-details">
+              <h3>Nosso Endereco</h3>
+              <p class="address">Rua Major Jose dos Santos Moreira, 328</p>
+              <p class="city">Pindamonhangaba, SP</p>
+              <div class="location-meta">
+                <span>Seg a Sex: 8h as 18h</span>
+              </div>
+            </div>
+          </div>
+          <div class="location-map">
+            <div class="map-placeholder">
+              <div class="map-pattern"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -119,7 +135,7 @@ export default {
         title: 'Localizacao',
         content: 'Rua Major Jose dos Santos Moreira, 328',
         detail: 'Pindamonhangaba, SP',
-        color: 'var(--pastel-lavender)'
+        color: 'linear-gradient(135deg, #E8E0F5 0%, #CDBFF0 100%)'
       },
       {
         title: 'WhatsApp',
@@ -127,19 +143,19 @@ export default {
         link: `https://wa.me/${phoneNumber}?text=${encodeURIComponent('Ola! Gostaria de mais informacoes.')}`,
         linkText: 'Chamar no WhatsApp',
         btnClass: 'btn-whatsapp',
-        color: 'var(--pastel-mint)'
+        color: 'linear-gradient(135deg, #E0F5E8 0%, #C4EAD8 100%)'
       },
       {
         title: 'E-mail',
         content: 'contato@autitude.com.br',
         detail: 'Respondemos em ate 24h',
-        color: 'var(--pastel-pink)'
+        color: 'linear-gradient(135deg, #FFE0E8 0%, #FFD4E0 100%)'
       },
       {
         title: 'Horario',
         content: 'Segunda a Sexta',
         detail: '8h as 18h',
-        color: 'var(--pastel-peach)'
+        color: 'linear-gradient(135deg, #FFF0E8 0%, #FFE8DC 100%)'
       }
     ]
 
@@ -174,7 +190,8 @@ export default {
 
 <style scoped>
 .hero-section {
-  padding-top: 120px;
+  padding-top: 140px;
+  padding-bottom: 4rem;
 }
 
 .section-header {
@@ -203,14 +220,14 @@ export default {
   margin-bottom: 1rem;
 }
 
-.contact-grid {
+.contact-showcase {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  gap: 3rem;
+  gap: 2rem;
   align-items: start;
 }
 
-.contact-info {
+.contact-info-cards {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -218,14 +235,20 @@ export default {
 
 .info-card {
   background: var(--surface);
-  padding: 1.25rem;
   border-radius: var(--radius-xl);
+  padding: 1.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   box-shadow: var(--shadow-xs);
+  transition: all 0.3s ease;
 }
 
-.info-icon {
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-icon-wrapper {
   width: 56px;
   height: 56px;
   min-width: 56px;
@@ -235,30 +258,32 @@ export default {
   justify-content: center;
 }
 
-.icon-box {
+.card-icon-inner {
   width: 24px;
   height: 24px;
-  border-radius: 6px;
   background: var(--primary);
+  border-radius: 6px;
   opacity: 0.5;
 }
 
-.info-content h3 {
+.card-text h3 {
   font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.primary-text {
+  font-size: 0.9375rem;
+  color: var(--text);
   margin-bottom: 0.25rem;
 }
 
-.info-content > p {
-  font-size: 0.9375rem;
-}
-
-.info-detail {
+.secondary-text {
   font-size: 0.8125rem;
-  color: var(--text-light) !important;
+  color: var(--text-light);
   margin-bottom: 0.75rem;
 }
 
-.info-content .btn {
+.info-card .btn {
   margin-top: 0.5rem;
 }
 
@@ -269,14 +294,18 @@ export default {
   box-shadow: var(--shadow-sm);
 }
 
-.contact-form h3 {
+.form-header {
+  margin-bottom: 1.5rem;
+}
+
+.form-header h3 {
+  font-size: 1.25rem;
   margin-bottom: 0.25rem;
 }
 
-.form-subtitle {
+.form-header p {
   font-size: 0.875rem;
   color: var(--text-light);
-  margin-bottom: 1.5rem;
 }
 
 .form-row {
@@ -287,7 +316,7 @@ export default {
 
 .form-label {
   display: block;
-  margin-bottom: 0.375rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
   font-size: 0.875rem;
 }
@@ -297,116 +326,126 @@ export default {
   margin-top: 0.5rem;
 }
 
-.map-section {
-  background: var(--pastel-lavender);
-}
-
-.map-placeholder {
+.location-section {
   background: var(--surface);
-  padding: 3rem;
+}
+
+.location-card {
+  background: var(--background);
+  border-radius: var(--radius-2xl);
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.location-content {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.location-icon {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  background: var(--pastel-lavender);
   border-radius: var(--radius-xl);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.map-icon {
-  width: 64px;
-  height: 64px;
-  background: var(--primary-light);
-  border-radius: 50%;
-  margin: 0 auto 0.75rem;
+.icon-shape {
+  width: 32px;
+  height: 32px;
+  background: var(--gradient-primary);
+  border-radius: 10px;
 }
 
-.map-placeholder p {
-  font-size: 1.0625rem;
+.location-details h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+}
+
+.address {
+  font-size: 1rem;
+  color: var(--text);
   margin-bottom: 0.25rem;
 }
 
-.map-placeholder small {
-  font-size: 0.875rem;
+.city {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.location-meta {
+  font-size: 0.8125rem;
   color: var(--text-light);
 }
 
-/* Tablet */
-@media (max-width: 768px) {
-  .contact-grid {
+.location-map {
+  height: 160px;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-mint) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-pattern {
+  width: 60px;
+  height: 60px;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+@media (max-width: 900px) {
+  .contact-showcase {
     grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 5vw, 2rem);
   }
   
-  .contact-info {
+  .contact-info-cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
   
-  .info-card {
-    text-align: center;
-  }
-  
-  .info-icon {
-    margin: 0 auto 0.75rem;
-  }
-  
-  .social-card {
-    grid-column: span 2;
-  }
-  
-  .social-links {
-    justify-content: center;
-  }
-  
-  .map-placeholder {
-    padding: clamp(1.5rem, 5vw, 2rem);
-  }
-}
-
-/* Mobile */
-@media (max-width: 500px) {
-  .contact-info {
+  .location-card {
     grid-template-columns: 1fr;
   }
   
-  .social-card {
-    grid-column: auto;
+  .location-map {
+    order: -1;
   }
-  
-  .contact-form-wrapper {
-    padding: clamp(1.25rem, 4vw, 1.5rem);
+}
+
+@media (max-width: 640px) {
+  .contact-info-cards {
+    grid-template-columns: 1fr;
   }
   
   .form-row {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0;
   }
   
-  .form-group {
-    margin-bottom: 1rem;
+  .location-content {
+    flex-direction: column;
+    text-align: center;
   }
   
-  .btn-submit {
-    padding: 0.875rem;
-    font-size: 1rem;
-  }
-  
-  .map-section {
-    padding: clamp(1.5rem, 5vw, 2rem) 0;
-  }
-  
-  .map-placeholder {
-    padding: clamp(1.25rem, 4vw, 1.5rem);
-  }
-}
-
-/* Small */
-@media (max-width: 380px) {
-  .section-title h2 {
-    font-size: 1.5rem;
-  }
-  
-  .info-icon {
-    width: 45px;
-    height: 45px;
-    font-size: 1.1rem;
+  .location-icon {
+    margin: 0 auto;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="team">
-    <section class="section hero-section">
+    <section class="hero-section">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Nossa Profissional</span>
@@ -8,19 +8,18 @@
           <p>Comprometida com o desenvolvimento das criancas.</p>
         </div>
 
-        <div class="team-grid">
-          <div class="team-card" v-for="member in team" :key="member.name">
-            <div class="member-photo" :style="{ background: member.color }">
-              <div class="photo-icon"></div>
+        <div class="team-showcase">
+          <div class="team-main-card" v-for="member in team" :key="member.name">
+            <div class="member-visual">
+              <div class="visual-shape"></div>
+              <div class="visual-accent"></div>
             </div>
-            <div class="member-info">
-              <h3>{{ member.name }}</h3>
+            <div class="member-details">
+              <h2>{{ member.name }}</h2>
               <p class="member-role">{{ member.role }}</p>
               <p class="member-bio">{{ member.bio }}</p>
               <div class="member-tags">
-                <span v-for="tag in member.tags" :key="tag" class="tag">
-                  {{ tag }}
-                </span>
+                <span v-for="tag in member.tags" :key="tag" class="tag">{{ tag }}</span>
               </div>
             </div>
           </div>
@@ -28,18 +27,22 @@
       </div>
     </section>
 
-    <section class="culture-section section">
+    <section class="values-section section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Nossa Cultura</span>
-          <h2>O que nos torna únicas</h2>
+          <div class="header-content">
+            <span class="section-tag">Nossos Valores</span>
+            <h2>O que nos move</h2>
+          </div>
         </div>
         
-        <div class="culture-grid">
-          <div class="culture-card" v-for="item in culture" :key="item.title">
-            <div class="culture-icon"></div>
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.description }}</p>
+        <div class="values-grid">
+          <div class="value-card" v-for="value in culture" :key="value.title">
+            <div class="value-icon-wrapper">
+              <div class="value-icon-inner"></div>
+            </div>
+            <h3>{{ value.title }}</h3>
+            <p>{{ value.description }}</p>
           </div>
         </div>
       </div>
@@ -48,11 +51,18 @@
     <section class="cta-section section">
       <div class="container">
         <div class="cta-card">
-          <h2>Venha nos visitar</h2>
-          <p>Agende uma visita e conheça nosso espaço acolhedor.</p>
-          <router-link to="/contato" class="btn btn-primary">
-            Falar Conosco
-          </router-link>
+          <div class="cta-content">
+            <h2>Gostaria de nos conhecer?</h2>
+            <p>Agende uma visita e descubra como podemos ajudar no desenvolvimento do seu filho.</p>
+            <div class="cta-actions">
+              <router-link to="/agendar" class="btn btn-primary btn-lg">
+                Agendar Visita
+              </router-link>
+              <router-link to="/contato" class="btn btn-secondary btn-lg">
+                Falar Conosco
+              </router-link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -69,15 +79,14 @@ export default {
           name: 'Dra. Juliana Mariani',
           role: 'Terapeuta Ocupacional | CREFITO 20083-TO',
           bio: 'Especialista em Integracao Sensorial com certificacao pela North Carolina University (USA). Mais de 15 anos de experiencia em terapia ocupacional pediatrica e desenvolvimento infantil.',
-          color: 'var(--pastel-lavender)',
           tags: ['CREFITO 20083-TO', 'Integracao Sensorial', 'Certificacao NC University', 'Terapia Pediatrica']
         }
       ],
       culture: [
-        { title: 'Cuidado Humanizado', description: 'Cada crianca e unica. Tratamos com respeito e sensibilidade.' },
-        { title: 'Excelencia Tecnica', description: 'Profissionais em constante atualizacao.' },
-        { title: 'Parceria com Familias', description: 'Familia e essencial no processo.' },
-        { title: 'Crescimento Continuo', description: 'Acompanhamos cada passo.' }
+        { title: 'Excelencia', description: 'Profissionais em constante atualizacao cientifica e tecnica.' },
+        { title: 'Humanizacao', description: 'Cada crianca e unica. Tratamos com respeito e sensibilidade.' },
+        { title: 'Parceria', description: 'Familia e parte essencial do processo de desenvolvimento.' },
+        { title: 'Crescimento', description: 'Acompanhamos cada passo com atencao e dedicacao.' }
       ]
     }
   }
@@ -86,7 +95,8 @@ export default {
 
 <style scoped>
 .hero-section {
-  padding-top: 120px;
+  padding-top: 140px;
+  padding-bottom: 4rem;
 }
 
 .section-header {
@@ -115,60 +125,69 @@ export default {
   margin-bottom: 1rem;
 }
 
-.team-grid {
+.team-showcase {
+  display: flex;
+  justify-content: center;
+}
+
+.team-main-card {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.team-card {
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
   background: var(--surface);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-xs);
-  transition: all 0.3s var(--ease-smooth);
-}
-
-.team-card:hover {
-  transform: translateY(-4px);
+  border-radius: var(--radius-2xl);
+  padding: 3rem;
   box-shadow: var(--shadow-md);
+  max-width: 900px;
+  width: 100%;
 }
 
-.member-photo {
-  height: 200px;
+.member-visual {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.photo-icon {
-  width: 80px;
-  height: 80px;
-  background: var(--primary);
+.visual-shape {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--primary-light) 100%);
   border-radius: 50%;
+}
+
+.visual-accent {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: var(--gradient-primary);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   opacity: 0.3;
+  animation: morphShape 8s ease-in-out infinite;
 }
 
-.member-info {
-  padding: 1.5rem;
+@keyframes morphShape {
+  0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
 }
 
-.member-info h3 {
-  margin-bottom: 0.25rem;
+.member-details h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .member-role {
+  font-size: 1rem;
   color: var(--primary);
   font-weight: 600;
-  font-size: 0.9375rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .member-bio {
-  font-size: 0.875rem;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--text-secondary);
-  margin-bottom: 1rem;
-  line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
 
 .member-tags {
@@ -178,7 +197,7 @@ export default {
 }
 
 .tag {
-  padding: 0.25rem 0.75rem;
+  padding: 0.375rem 0.875rem;
   background: var(--pastel-lavender);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
@@ -186,37 +205,65 @@ export default {
   color: var(--primary-dark);
 }
 
-.culture-section {
+.values-section {
   background: var(--surface);
 }
 
-.culture-grid {
+.header-content {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header-content h2 {
+  margin-bottom: 0;
+}
+
+.values-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.culture-card {
+.value-card {
   background: var(--background);
-  padding: 1.75rem;
+  padding: 2rem;
   border-radius: var(--radius-xl);
   text-align: center;
+  transition: all 0.3s ease;
 }
 
-.culture-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--primary-light);
-  border-radius: 50%;
-  margin: 0 auto 0.75rem;
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
-.culture-card h3 {
+.value-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  background: var(--pastel-lavender);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.value-icon-inner {
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 6px;
+  opacity: 0.5;
+}
+
+.value-card h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
 
-.culture-card p {
+.value-card p {
   font-size: 0.875rem;
   color: var(--text-secondary);
 }
@@ -226,34 +273,63 @@ export default {
 }
 
 .cta-card {
-  background: var(--surface);
+  background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-mint) 100%);
   border-radius: var(--radius-2xl);
   padding: 3rem;
   text-align: center;
 }
 
-.cta-card h2 {
+.cta-content h2 {
   margin-bottom: 0.75rem;
 }
 
-.cta-card p {
-  margin-bottom: 1.5rem;
+.cta-content p {
+  font-size: 1.0625rem;
+  margin-bottom: 2rem;
   color: var(--text-secondary);
 }
 
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 @media (max-width: 900px) {
-  .team-grid {
+  .team-main-card {
     grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
   }
   
-  .culture-grid {
+  .member-visual {
+    order: -1;
+  }
+  
+  .member-tags {
+    justify-content: center;
+  }
+  
+  .values-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 500px) {
-  .culture-grid {
+@media (max-width: 640px) {
+  .team-main-card {
+    padding: 2rem;
+  }
+  
+  .values-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .cta-actions {
+    flex-direction: column;
+  }
+  
+  .cta-actions .btn {
+    width: 100%;
   }
 }
 </style>

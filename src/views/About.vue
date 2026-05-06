@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <section class="section hero-section">
+    <section class="hero-section">
       <div class="container">
         <div class="about-header">
           <span class="section-tag">Sobre a Autitude</span>
@@ -11,7 +11,7 @@
           </p>
         </div>
 
-        <div class="about-grid">
+        <div class="about-showcase">
           <div class="about-content">
             <h2>Nossa Historia</h2>
             <p>
@@ -28,15 +28,15 @@
           </div>
           
           <div class="about-stats">
-            <div class="stat-box">
+            <div class="stat-card">
               <span class="stat-number">15+</span>
               <span class="stat-text">Anos de Experiencia</span>
             </div>
-            <div class="stat-box">
+            <div class="stat-card">
               <span class="stat-number">Certificada</span>
               <span class="stat-text">NC University USA</span>
             </div>
-            <div class="stat-box">
+            <div class="stat-card">
               <span class="stat-number">Local</span>
               <span class="stat-text">Pindamonhangaba</span>
             </div>
@@ -48,13 +48,17 @@
     <section class="values-section section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Nossos Valores</span>
-          <h2>O que nos move</h2>
+          <div class="header-content">
+            <span class="section-tag">Nossos Valores</span>
+            <h2>O que nos move</h2>
+          </div>
         </div>
         
         <div class="values-grid">
           <div class="value-card" v-for="value in values" :key="value.title">
-            <div class="value-icon"></div>
+            <div class="value-icon">
+              <div class="icon-shape"></div>
+            </div>
             <h3>{{ value.title }}</h3>
             <p>{{ value.description }}</p>
           </div>
@@ -66,17 +70,23 @@
       <div class="container">
         <div class="mission-grid">
           <div class="mission-card">
-            <div class="mission-icon"></div>
+            <div class="mission-icon">
+              <div class="icon-circle"></div>
+            </div>
             <h3>Missao</h3>
             <p>Promover o desenvolvimento integral de criancas atraves de intervencoes especializadas e baseadas em evidencias cientificas.</p>
           </div>
           <div class="mission-card">
-            <div class="mission-icon"></div>
+            <div class="mission-icon">
+              <div class="icon-circle"></div>
+            </div>
             <h3>Visao</h3>
             <p>Ser referencia em terapia ocupacional e integracao sensorial na regiao.</p>
           </div>
           <div class="mission-card">
-            <div class="mission-icon"></div>
+            <div class="mission-icon">
+              <div class="icon-circle"></div>
+            </div>
             <h3>Valores</h3>
             <p>Humanizacao, etica, excelencia tecnica e compromisso com as familias.</p>
           </div>
@@ -87,11 +97,13 @@
     <section class="cta-section section">
       <div class="container">
         <div class="cta-card">
-          <h2>Gostaria de nos conhecer?</h2>
-          <p>Agende uma visita e descubra como podemos ajudar no desenvolvimento do seu filho.</p>
-          <router-link to="/agendar" class="btn btn-primary">
-            Agendar Visita
-          </router-link>
+          <div class="cta-content">
+            <h2>Gostaria de nos conhecer?</h2>
+            <p>Agende uma visita e descubra como podemos ajudar no desenvolvimento do seu filho.</p>
+            <router-link to="/agendar" class="btn btn-primary btn-lg">
+              Agendar Visita
+            </router-link>
+          </div>
         </div>
       </div>
     </section>
@@ -128,7 +140,8 @@ export default {
 
 <style scoped>
 .hero-section {
-  padding-top: 120px;
+  padding-top: 140px;
+  padding-bottom: 4rem;
 }
 
 .about-header {
@@ -157,19 +170,22 @@ export default {
   margin-bottom: 1rem;
 }
 
-.about-grid {
+.about-showcase {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
   gap: 3rem;
   align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .about-content h2 {
-  margin-bottom: 1.25rem;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .about-content p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   line-height: 1.8;
   color: var(--text-secondary);
 }
@@ -184,7 +200,7 @@ export default {
   gap: 1rem;
 }
 
-.stat-box {
+.stat-card {
   background: var(--surface);
   padding: 1.5rem;
   border-radius: var(--radius-xl);
@@ -194,7 +210,7 @@ export default {
 
 .stat-number {
   display: block;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--primary);
   margin-bottom: 0.25rem;
@@ -209,34 +225,49 @@ export default {
   background: var(--surface);
 }
 
-.section-header {
+.header-content {
   text-align: center;
   margin-bottom: 3rem;
-}
-
-.section-header h2 {
-  margin-bottom: 0;
 }
 
 .values-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .value-card {
   background: var(--background);
-  padding: 1.75rem;
+  padding: 2rem;
   border-radius: var(--radius-xl);
   text-align: center;
+  transition: all 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
 .value-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--primary-light);
-  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  background: var(--pastel-lavender);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto 1rem;
+}
+
+.icon-shape {
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 6px;
+  opacity: 0.5;
 }
 
 .value-card h3 {
@@ -250,13 +281,15 @@ export default {
 }
 
 .mission-section {
-  background: var(--gradient-hero);
+  background: var(--background);
 }
 
 .mission-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .mission-card {
@@ -268,12 +301,21 @@ export default {
 }
 
 .mission-icon {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.icon-circle {
+  width: 20px;
+  height: 20px;
   background: var(--primary);
   border-radius: 50%;
-  margin: 0 auto 1rem;
-  opacity: 0.3;
 }
 
 .mission-card h3 {
@@ -297,30 +339,40 @@ export default {
   text-align: center;
 }
 
-.cta-card h2 {
+.cta-content h2 {
   margin-bottom: 0.75rem;
 }
 
-.cta-card p {
+.cta-content p {
   margin-bottom: 1.5rem;
   color: var(--text-secondary);
 }
 
 @media (max-width: 900px) {
-  .about-grid {
+  .about-showcase {
     grid-template-columns: 1fr;
+    text-align: center;
   }
   
-  .values-grid,
-  .mission-grid {
+  .about-stats {
+    justify-content: center;
+  }
+  
+  .values-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .mission-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 600px) {
-  .about-stats,
-  .values-grid,
-  .mission-grid {
+@media (max-width: 640px) {
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .values-grid {
     grid-template-columns: 1fr;
   }
 }

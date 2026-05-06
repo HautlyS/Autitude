@@ -1,123 +1,140 @@
 <template>
   <div class="schedule">
-    <section class="section hero-section">
+    <section class="hero-section">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Agendamento</span>
           <h1>Agende sua consulta</h1>
-          <p>Preencha o formulário e retornaremos em até 24 horas.</p>
+          <p>Preencha o formulario e retornaremos em ate 24 horas.</p>
         </div>
 
-        <div class="schedule-grid">
+        <div class="schedule-showcase">
           <form class="schedule-form" @submit.prevent="handleSubmit">
-            <div class="form-row">
+            <div class="form-section">
+              <h3>Dados do Responsavel</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="parentName">Nome do Responsavel *</label>
+                  <input
+                    type="text"
+                    id="parentName"
+                    class="form-input"
+                    v-model="form.parentName"
+                    required
+                    placeholder="Seu nome completo"
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="phone">Telefone *</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    class="form-input"
+                    v-model="form.phone"
+                    required
+                    placeholder="(12) 99999-9999"
+                    @input="formatPhone"
+                  >
+                </div>
+              </div>
+              
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="email">E-mail</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-input"
+                    v-model="form.email"
+                    placeholder="seu@email.com"
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="childName">Nome da Crianca</label>
+                  <input
+                    type="text"
+                    id="childName"
+                    class="form-input"
+                    v-model="form.childName"
+                    placeholder="Nome da crianca"
+                  >
+                </div>
+              </div>
+
               <div class="form-group">
-                <label class="form-label" for="parentName">Nome do Responsável *</label>
+                <label class="form-label" for="childAge">Idade da Crianca</label>
                 <input
                   type="text"
-                  id="parentName"
+                  id="childAge"
                   class="form-input"
-                  v-model="form.parentName"
-                  required
-                  placeholder="Seu nome completo"
-                >
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="phone">Telefone *</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  class="form-input"
-                  v-model="form.phone"
-                  required
-                  placeholder="(12) 99999-9999"
-                  @input="formatPhone"
+                  v-model="form.childAge"
+                  placeholder="Ex: 5 anos"
                 >
               </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-section">
+              <h3>Informacoes Adicionais</h3>
               <div class="form-group">
-                <label class="form-label" for="email">E-mail</label>
-                <input
-                  type="email"
-                  id="email"
-                  class="form-input"
-                  v-model="form.email"
-                  placeholder="seu@email.com"
-                >
+                <label class="form-label" for="message">Observacoes</label>
+                <textarea
+                  id="message"
+                  class="form-textarea"
+                  v-model="form.message"
+                  placeholder="Conte-nos mais sobre sua demanda..."
+                  rows="4"
+                ></textarea>
               </div>
-
-              <div class="form-group">
-                <label class="form-label" for="childName">Nome da Criança</label>
-                <input
-                  type="text"
-                  id="childName"
-                  class="form-input"
-                  v-model="form.childName"
-                  placeholder="Nome da criança"
-                >
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="childAge">Idade da Criança</label>
-              <input
-                type="text"
-                id="childAge"
-                class="form-input"
-                v-model="form.childAge"
-                placeholder="Ex: 5 anos"
-              >
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="message">Observações</label>
-              <textarea
-                id="message"
-                class="form-textarea"
-                v-model="form.message"
-                placeholder="Conte-nos mais sobre sua demanda..."
-                rows="4"
-              ></textarea>
             </div>
 
             <div class="form-privacy">
               <label class="checkbox-label">
                 <input type="checkbox" v-model="form.privacy" required>
-                <span>Aceito a <router-link to="/privacidade">Política de Privacidade</router-link></span>
+                <span>Aceito a <router-link to="/privacidade">Politica de Privacidade</router-link></span>
               </label>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-submit" :disabled="isSubmitting">
-              {{ isSubmitting ? 'Enviando...' : 'Enviar Solicitação' }}
+            <button type="submit" class="btn btn-primary btn-lg btn-submit" :disabled="isSubmitting">
+              {{ isSubmitting ? 'Enviando...' : 'Enviar Solicitacao' }}
             </button>
           </form>
 
           <div class="schedule-info">
-            <div class="info-card">
-              <h3>Como funciona?</h3>
-              <ol class="steps">
-                <li><strong>1.</strong> Preencha o formulário</li>
-                <li><strong>2.</strong> Entraremos em contato em até 24h</li>
-                <li><strong>3.</strong> Agendamos a avaliação</li>
-                <li><strong>4.</strong> Iniciamos o tratamento</li>
+            <div class="info-block how-it-works">
+              <div class="block-header">
+                <div class="block-icon"></div>
+                <h3>Como funciona?</h3>
+              </div>
+              <ol class="steps-list">
+                <li><span class="step-num">1</span> Preencha o formulario</li>
+                <li><span class="step-num">2</span> Entraremos em contato em ate 24h</li>
+                <li><span class="step-num">3</span> Agendamos a avaliacao</li>
+                <li><span class="step-num">4</span> Iniciamos o tratamento</li>
               </ol>
             </div>
 
-            <div class="info-card">
-              <h3>Prefere WhatsApp?</h3>
-              <p>Fale conosco diretamente para dúvidas rápidas.</p>
+            <div class="info-block contact-quick">
+              <div class="block-header">
+                <div class="block-icon whatsapp"></div>
+                <h3>Prefere WhatsApp?</h3>
+              </div>
+              <p>Fale conosco diretamente para duvidas rapidas.</p>
               <a :href="whatsappLink" class="btn btn-whatsapp" target="_blank">
                 Chamar no WhatsApp
               </a>
             </div>
 
-            <div class="info-card info-hours">
-              <h3>Horário de Atendimento</h3>
-              <p>Segunda a Sexta</p>
-              <p class="hours">8h às 18h</p>
+            <div class="info-block hours-block">
+              <div class="block-header">
+                <div class="block-icon time"></div>
+                <h3>Horario de Atendimento</h3>
+              </div>
+              <div class="hours-info">
+                <p class="days">Segunda a Sexta</p>
+                <p class="hours">8h as 18h</p>
+              </div>
             </div>
           </div>
         </div>
@@ -145,7 +162,7 @@ export default {
     const phoneNumber = '5512991968683'
 
     const whatsappLink = computed(() => {
-      const text = encodeURIComponent('Olá! Gostaria de agendar uma avaliação.')
+      const text = encodeURIComponent('Ola! Gostaria de agendar uma avaliacao.')
       return `https://wa.me/${phoneNumber}?text=${text}`
     })
 
@@ -161,7 +178,7 @@ export default {
 
     const handleSubmit = async () => {
       if (!form.value.privacy) {
-        alert('Por favor, aceite a Política de Privacidade.')
+        alert('Por favor, aceite a Politica de Privacidade.')
         return
       }
 
@@ -191,7 +208,8 @@ export default {
 
 <style scoped>
 .hero-section {
-  padding-top: 120px;
+  padding-top: 140px;
+  padding-bottom: 4rem;
 }
 
 .section-header {
@@ -220,9 +238,9 @@ export default {
   margin-bottom: 1rem;
 }
 
-.schedule-grid {
+.schedule-showcase {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1.4fr 1fr;
   gap: 2rem;
   align-items: start;
 }
@@ -234,25 +252,36 @@ export default {
   box-shadow: var(--shadow-sm);
 }
 
-.form-row {
+.form-section {
+  margin-bottom: 1.5rem;
+}
+
+.form-section h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 0.375rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
   font-size: 0.875rem;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .form-privacy {
-  margin: 1.25rem 0;
+  margin: 1.5rem 0;
 }
 
 .checkbox-label {
@@ -285,55 +314,107 @@ export default {
   gap: 1rem;
 }
 
-.info-card {
+.info-block {
   background: var(--surface);
-  padding: 1.25rem;
+  padding: 1.5rem;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xs);
 }
 
-.info-card h3 {
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.block-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--pastel-lavender);
+  border-radius: var(--radius-lg);
+}
+
+.block-icon.whatsapp {
+  background: #E8F5E9;
+}
+
+.block-icon.time {
+  background: var(--pastel-peach);
+}
+
+.block-header h3 {
   font-size: 1rem;
-  margin-bottom: 0.75rem;
+  margin: 0;
 }
 
-.steps {
-  list-style: decimal;
-  padding-left: 1.25rem;
-  font-size: 0.875rem;
+.steps-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.steps li {
-  margin-bottom: 0.5rem;
+.steps-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
 }
 
-.info-card p {
+.step-num {
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.contact-quick p {
   font-size: 0.875rem;
   color: var(--text-secondary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.info-card .btn {
+.contact-quick .btn {
   width: 100%;
 }
 
-.info-hours {
+.hours-block {
   background: var(--pastel-mint);
 }
 
+.days {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
 .hours {
-  font-size: 1.125rem !important;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text) !important;
+  color: var(--text);
 }
 
 @media (max-width: 900px) {
-  .schedule-grid {
+  .schedule-showcase {
     grid-template-columns: 1fr;
   }
   
-  .form-row {
+  .form-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .schedule-form {
+    padding: 1.5rem;
   }
 }
 </style>
