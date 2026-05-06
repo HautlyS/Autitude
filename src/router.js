@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   { path: '/', name: 'Home', component: () => import('./views/Home.vue') },
@@ -13,8 +13,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
-  base: '/',
+  history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
