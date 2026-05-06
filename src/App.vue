@@ -202,6 +202,7 @@ export default {
   z-index: -1;
   overflow: hidden;
   background: var(--background);
+  opacity: 0.7;
 }
 
 .ambient-bg :deep(.relative) {

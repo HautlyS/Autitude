@@ -3,9 +3,9 @@
 
 :root {
   /* Primary Brand Colors - Soft, calming palette */
-  --primary: #9B7ED9;
+  --primary: #7B5CBF;
   --primary-light: #CDBFF0;
-  --primary-dark: #7B5CBF;
+  --primary-dark: #5A3DA0;
   
   /* Secondary - Warm coral accent */
   --secondary: #F2A07B;
@@ -22,11 +22,11 @@
   --warning: #FFB74D;
   
   /* Neutrals */
-  --text: #3D3D5C;
-  --text-secondary: #6B6B8F;
-  --text-light: #9B9BC4;
+  --text: #1a1a2e;
+  --text-secondary: #3d3d5c;
+  --text-light: #6b6b8f;
   --white: #FFFFFF;
-  --background: #F8F6FC;
+  --background: #fafafe;
   --surface: #FFFFFF;
   
   /* Soft pastels for decorative elements */
@@ -108,6 +108,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 h1 {

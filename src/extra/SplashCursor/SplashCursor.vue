@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, withDefaults, useTemplateRef } from 'vue';
+import { onMounted, onBeforeUnmount, withDefaults, useTemplateRef } from 'vue';
 
 /* ---------- types ---------- */
 interface ColorRGB {
@@ -51,6 +51,8 @@ const props = withDefaults(defineProps<SplashCursorProps>(), {
 
 /* ---------- refs ---------- */
 const canvasRef = useTemplateRef<HTMLCanvasElement>('canvasRef');
+let cleanup: (() => void) | null = null;
+let rafId: number | null = null;
 
 /* ---------- helper types ---------- */
 interface Pointer {
@@ -83,37 +85,38 @@ function pointerPrototype(): Pointer {
 
 /* ---------- main logic ---------- */
 onMounted(() => {
-  const canvas = canvasRef.value;
-  if (!canvas) return;
+  try {
+    const canvas = canvasRef.value;
+    if (!canvas) return;
 
-  const pointers: Pointer[] = [pointerPrototype()];
+    const pointers: Pointer[] = [pointerPrototype()];
 
-  const config = {
-    SIM_RESOLUTION: props.SIM_RESOLUTION!,
-    DYE_RESOLUTION: props.DYE_RESOLUTION!,
-    CAPTURE_RESOLUTION: props.CAPTURE_RESOLUTION!,
-    DENSITY_DISSIPATION: props.DENSITY_DISSIPATION!,
-    VELOCITY_DISSIPATION: props.VELOCITY_DISSIPATION!,
-    PRESSURE: props.PRESSURE!,
-    PRESSURE_ITERATIONS: props.PRESSURE_ITERATIONS!,
-    CURL: props.CURL!,
-    SPLAT_RADIUS: props.SPLAT_RADIUS!,
-    SPLAT_FORCE: props.SPLAT_FORCE!,
-    SHADING: props.SHADING,
-    COLOR_UPDATE_SPEED: props.COLOR_UPDATE_SPEED!,
-    PAUSED: false,
-    BACK_COLOR: props.BACK_COLOR,
-    TRANSPARENT: props.TRANSPARENT
-  };
+    const config = {
+      SIM_RESOLUTION: props.SIM_RESOLUTION!,
+      DYE_RESOLUTION: props.DYE_RESOLUTION!,
+      CAPTURE_RESOLUTION: props.CAPTURE_RESOLUTION!,
+      DENSITY_DISSIPATION: props.DENSITY_DISSIPATION!,
+      VELOCITY_DISSIPATION: props.VELOCITY_DISSIPATION!,
+      PRESSURE: props.PRESSURE!,
+      PRESSURE_ITERATIONS: props.PRESSURE_ITERATIONS!,
+      CURL: props.CURL!,
+      SPLAT_RADIUS: props.SPLAT_RADIUS!,
+      SPLAT_FORCE: props.SPLAT_FORCE!,
+      SHADING: props.SHADING,
+      COLOR_UPDATE_SPEED: props.COLOR_UPDATE_SPEED!,
+      PAUSED: false,
+      BACK_COLOR: props.BACK_COLOR,
+      TRANSPARENT: props.TRANSPARENT
+    };
 
-  /* ---------- WebGL context helpers ---------- */
-  const { gl, ext } = getWebGLContext(canvas);
-  if (!gl || !ext) return;
+    /* ---------- WebGL context helpers ---------- */
+    const { gl, ext } = getWebGLContext(canvas);
+    if (!gl || !ext) return;
 
-  if (!ext.supportLinearFiltering) {
-    config.DYE_RESOLUTION = 256;
-    config.SHADING = false;
-  }
+    if (!ext.supportLinearFiltering) {
+      config.DYE_RESOLUTION = 256;
+      config.SHADING = false;
+    }
 
   function getWebGLContext(canvasEl: HTMLCanvasElement) {
     const params = {
@@ -855,8 +858,9 @@ onMounted(() => {
     applyInputs();
     step(dt);
     render(null);
-    requestAnimationFrame(updateFrame);
+    rafId = requestAnimationFrame(updateFrame);
   }
+  rafId = requestAnimationFrame(updateFrame);
 
   function calcDeltaTime() {
     const now = Date.now();
@@ -1188,15 +1192,7 @@ onMounted(() => {
   }
 
   /* ---------- input events ---------- */
-  window.addEventListener('mousedown', e => {
-    const pointer = pointers[0];
-    const posX = scaleByPixelRatio(e.clientX);
-    const posY = scaleByPixelRatio(e.clientY);
-    updatePointerDownData(pointer, -1, posX, posY);
-    clickSplat(pointer);
-  });
-
-  function handleFirstMouseMove(e: MouseEvent) {
+  const handleFirstMouseMove = (e: MouseEvent) => {
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
@@ -1204,18 +1200,10 @@ onMounted(() => {
     updateFrame();
     updatePointerMoveData(pointer, posX, posY, color);
     document.body.removeEventListener('mousemove', handleFirstMouseMove);
-  }
+  };
   document.body.addEventListener('mousemove', handleFirstMouseMove);
 
-  window.addEventListener('mousemove', e => {
-    const pointer = pointers[0];
-    const posX = scaleByPixelRatio(e.clientX);
-    const posY = scaleByPixelRatio(e.clientY);
-    const color = pointer.color;
-    updatePointerMoveData(pointer, posX, posY, color);
-  });
-
-  function handleFirstTouchStart(e: TouchEvent) {
+  const handleFirstTouchStart = (e: TouchEvent) => {
     const touches = e.targetTouches;
     const pointer = pointers[0];
     for (let i = 0; i < touches.length; i++) {
@@ -1225,12 +1213,28 @@ onMounted(() => {
       updatePointerDownData(pointer, touches[i].identifier, posX, posY);
     }
     document.body.removeEventListener('touchstart', handleFirstTouchStart);
-  }
+  };
   document.body.addEventListener('touchstart', handleFirstTouchStart);
+
+  window.addEventListener('mousedown', (e) => {
+    const pointer = pointers[0];
+    const posX = scaleByPixelRatio(e.clientX);
+    const posY = scaleByPixelRatio(e.clientY);
+    updatePointerDownData(pointer, -1, posX, posY);
+    clickSplat(pointer);
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    const pointer = pointers[0];
+    const posX = scaleByPixelRatio(e.clientX);
+    const posY = scaleByPixelRatio(e.clientY);
+    const color = pointer.color;
+    updatePointerMoveData(pointer, posX, posY, color);
+  });
 
   window.addEventListener(
     'touchstart',
-    e => {
+    (e) => {
       const touches = e.targetTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1263,5 +1267,36 @@ onMounted(() => {
       updatePointerUpData(pointer);
     }
   });
+
+    cleanup = () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      try {
+        document.body.removeEventListener('mousemove', handleFirstMouseMove);
+        document.body.removeEventListener('touchstart', handleFirstTouchStart);
+        window.removeEventListener('mousedown', handleFirstMouseMove as any);
+        window.removeEventListener('mousemove', handleFirstMouseMove as any);
+        window.removeEventListener('touchstart', handleFirstTouchStart as any);
+        const pointer = pointers[0];
+        if (canvas && canvas.width) {
+          canvas.width = 1;
+          canvas.height = 1;
+        }
+      } catch (e) {
+        // cleanup errors ignored
+      }
+    };
+  } catch (err) {
+    console.warn('SplashCursor: WebGL init failed:', err);
+  }
+});
+
+onBeforeUnmount(() => {
+  if (cleanup) {
+    cleanup();
+    cleanup = null;
+  }
 });
 </script>
