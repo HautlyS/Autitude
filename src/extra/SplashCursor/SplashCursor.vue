@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 left-0 z-50 pointer-events-none w-full h-full">
+  <div class="fixed top-0 left-0 z-50 pointer-events-none w-screen h-screen">
     <canvas ref="canvasRef" id="fluid" class="w-screen h-screen block"></canvas>
   </div>
 </template>
@@ -33,18 +33,18 @@ interface SplashCursorProps {
 
 /* ---------- props & defaults ---------- */
 const props = withDefaults(defineProps<SplashCursorProps>(), {
-  SIM_RESOLUTION: 128,
-  DYE_RESOLUTION: 1440,
-  CAPTURE_RESOLUTION: 512,
-  DENSITY_DISSIPATION: 3.5,
-  VELOCITY_DISSIPATION: 2,
-  PRESSURE: 0.1,
-  PRESSURE_ITERATIONS: 20,
-  CURL: 3,
-  SPLAT_RADIUS: 0.2,
-  SPLAT_FORCE: 6000,
-  SHADING: true,
-  COLOR_UPDATE_SPEED: 10,
+  SIM_RESOLUTION: 64,
+  DYE_RESOLUTION: 256,
+  CAPTURE_RESOLUTION: 256,
+  DENSITY_DISSIPATION: 4,
+  VELOCITY_DISSIPATION: 3,
+  PRESSURE: 0.8,
+  PRESSURE_ITERATIONS: 8,
+  CURL: 15,
+  SPLAT_RADIUS: 0.3,
+  SPLAT_FORCE: 200,
+  SHADING: false,
+  COLOR_UPDATE_SPEED: 8,
   BACK_COLOR: () => ({ r: 0.5, g: 0, b: 0 }),
   TRANSPARENT: true
 });
@@ -841,8 +841,7 @@ onMounted(() => {
   }
 
   function scaleByPixelRatio(input: number) {
-    const pixelRatio = window.devicePixelRatio || 1;
-    return Math.floor(input * pixelRatio);
+    return Math.floor(input);
   }
 
   updateKeywords();
@@ -850,14 +849,20 @@ onMounted(() => {
 
   let lastUpdateTime = Date.now();
   let colorUpdateTimer = 0.0;
+  let needsUpdate = true;
 
   function updateFrame() {
+    if (!needsUpdate) {
+      rafId = requestAnimationFrame(updateFrame);
+      return;
+    }
     const dt = calcDeltaTime();
     if (resizeCanvas()) initFramebuffers();
     updateColors(dt);
     applyInputs();
     step(dt);
     render(null);
+    needsUpdate = pointers.every(p => !p.moved && !p.down);
     rafId = requestAnimationFrame(updateFrame);
   }
   rafId = requestAnimationFrame(updateFrame);
@@ -1133,12 +1138,22 @@ onMounted(() => {
   }
 
   /* ---------- color helpers ---------- */
+  const colorPalette: ColorRGB[] = [
+    { r: 0.15, g: 0.12, b: 0.22 },
+    { r: 0.22, g: 0.08, b: 0.18 },
+    { r: 0.12, g: 0.18, b: 0.22 },
+    { r: 0.18, g: 0.15, b: 0.20 },
+    { r: 0.20, g: 0.10, b: 0.15 },
+    { r: 0.10, g: 0.20, b: 0.18 },
+    { r: 0.15, g: 0.08, b: 0.12 },
+    { r: 0.08, g: 0.15, b: 0.20 },
+  ];
+  let colorIndex = 0;
+
   function generateColor(): ColorRGB {
-    const c = HSVtoRGB(Math.random(), 1.0, 1.0);
-    c.r *= 0.15;
-    c.g *= 0.15;
-    c.b *= 0.15;
-    return c;
+    const c = colorPalette[colorIndex % colorPalette.length];
+    colorIndex++;
+    return { r: c.r, g: c.g, b: c.b };
   }
 
   function HSVtoRGB(h: number, s: number, v: number): ColorRGB {
@@ -1217,6 +1232,7 @@ onMounted(() => {
   document.body.addEventListener('touchstart', handleFirstTouchStart);
 
   window.addEventListener('mousedown', (e) => {
+    needsUpdate = true;
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
@@ -1225,6 +1241,7 @@ onMounted(() => {
   });
 
   window.addEventListener('mousemove', (e) => {
+    needsUpdate = true;
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
@@ -1235,6 +1252,7 @@ onMounted(() => {
   window.addEventListener(
     'touchstart',
     (e) => {
+      needsUpdate = true;
       const touches = e.targetTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1249,6 +1267,7 @@ onMounted(() => {
   window.addEventListener(
     'touchmove',
     e => {
+      needsUpdate = true;
       const touches = e.targetTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1261,6 +1280,7 @@ onMounted(() => {
   );
 
   window.addEventListener('touchend', e => {
+    needsUpdate = true;
     const touches = e.changedTouches;
     const pointer = pointers[0];
     for (let i = 0; i < touches.length; i++) {

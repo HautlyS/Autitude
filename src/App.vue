@@ -241,6 +241,7 @@ export default {
   width: clamp(1.5rem, 4vw, 1.8rem);
   height: clamp(1.5rem, 4vw, 1.8rem);
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .logo-icon {
@@ -365,6 +366,7 @@ main {
 .footer-brand .logo-img {
   width: 1.8rem;
   height: 1.8rem;
+  object-fit: cover;
 }
 
 .footer-brand p {
