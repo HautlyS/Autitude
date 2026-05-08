@@ -87,7 +87,12 @@ function pointerPrototype(): Pointer {
 onMounted(() => {
   try {
     const canvas = canvasRef.value;
-    if (!canvas) return;
+    if (!canvas) {
+      console.warn('SplashCursor: canvas ref not found');
+      return;
+    }
+
+    console.log('SplashCursor: initializing, canvas size:', canvas.clientWidth, canvas.clientHeight);
 
     const pointers: Pointer[] = [pointerPrototype()];
 
@@ -111,7 +116,15 @@ onMounted(() => {
 
     /* ---------- WebGL context helpers ---------- */
     const { gl, ext } = getWebGLContext(canvas);
-    if (!gl || !ext) return;
+    if (!gl) {
+      console.error('SplashCursor: WebGL not supported');
+      return;
+    }
+    if (!ext) {
+      console.error('SplashCursor: WebGL extensions failed');
+      return;
+    }
+    console.log('SplashCursor: WebGL initialized successfully');
 
     if (!ext.supportLinearFiltering) {
       config.DYE_RESOLUTION = 256;
@@ -849,20 +862,21 @@ onMounted(() => {
 
   let lastUpdateTime = Date.now();
   let colorUpdateTimer = 0.0;
-  let needsUpdate = true;
+  let isIdle = false;
 
   function updateFrame() {
-    if (!needsUpdate) {
-      rafId = requestAnimationFrame(updateFrame);
-      return;
-    }
     const dt = calcDeltaTime();
     if (resizeCanvas()) initFramebuffers();
+    
     updateColors(dt);
-    applyInputs();
-    step(dt);
-    render(null);
-    needsUpdate = pointers.every(p => !p.moved && !p.down);
+    
+    if (!isIdle || pointers.some(p => p.moved || p.down)) {
+      applyInputs();
+      step(dt);
+      render(null);
+      isIdle = !pointers.some(p => p.moved || p.down);
+    }
+    
     rafId = requestAnimationFrame(updateFrame);
   }
   rafId = requestAnimationFrame(updateFrame);
@@ -1232,7 +1246,7 @@ onMounted(() => {
   document.body.addEventListener('touchstart', handleFirstTouchStart);
 
   window.addEventListener('mousedown', (e) => {
-    needsUpdate = true;
+    isIdle = false;
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
@@ -1241,7 +1255,7 @@ onMounted(() => {
   });
 
   window.addEventListener('mousemove', (e) => {
-    needsUpdate = true;
+    isIdle = false;
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
     const posY = scaleByPixelRatio(e.clientY);
@@ -1252,7 +1266,7 @@ onMounted(() => {
   window.addEventListener(
     'touchstart',
     (e) => {
-      needsUpdate = true;
+      isIdle = false;
       const touches = e.targetTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1267,7 +1281,7 @@ onMounted(() => {
   window.addEventListener(
     'touchmove',
     e => {
-      needsUpdate = true;
+      isIdle = false;
       const touches = e.targetTouches;
       const pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1280,7 +1294,7 @@ onMounted(() => {
   );
 
   window.addEventListener('touchend', e => {
-    needsUpdate = true;
+    isIdle = false;
     const touches = e.changedTouches;
     const pointer = pointers[0];
     for (let i = 0; i < touches.length; i++) {

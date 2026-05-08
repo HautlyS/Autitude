@@ -82,6 +82,17 @@
             <p>Rua Major José dos Santos Moreira, 328</p>
             <p>Pindamonhangaba, SP</p>
             <p>Seg a Sex: 8h às 18h</p>
+            <div class="footer-map">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.52123456789!2d-45.45!3d-22.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDUxJzAwLjAiUyA0NcKwMjcnMDAuMCJF!5e0!3m2!1spt-BR!2sbr!4v1600000000000"
+                width="100%" 
+                height="120" 
+                style="border:0;border-radius:8px;" 
+                allowfullscreen="" 
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
           </div>
         </div>
         
@@ -418,6 +429,13 @@ main {
   font-size: 0.9375rem;
   margin-bottom: 0.625rem;
   transition: color 0.2s;
+}
+
+.footer-map {
+  margin-top: 0.75rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .footer-links a:hover,
