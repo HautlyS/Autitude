@@ -1,6 +1,7 @@
 <script setup>
 import { Stethoscope, Brain, Target, Baby, ClipboardCheck } from 'lucide-vue-next'
 import ColorBends from '~/components/ColorBends.vue'
+import Squares from '~/components/Squares.vue'
 
 useHead({
   title: 'Serviços | Autitude - Terapia Ocupacional e Integração Sensorial',
@@ -97,6 +98,15 @@ const processSteps = [
 <template>
   <div class="services">
     <section class="hero-section">
+      <div class="hero-bg-grid">
+        <Squares
+          direction="diagonal"
+          :speed="1"
+          :square-size="40"
+          border-color="#999"
+          hover-fill-color="#222"
+        />
+      </div>
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Nossos Serviços</span>
@@ -195,6 +205,20 @@ const processSteps = [
 .hero-section {
   padding-top: var(--space-section-top);
   padding-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 1;
 }
 
 .section-header {
