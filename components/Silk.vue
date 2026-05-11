@@ -96,7 +96,7 @@ void main() {
                            sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
 
   vec4 col = vec4(uColor, 1.0) * vec4(pattern) - rnd / 15.0 * uNoiseIntensity;
-  col.a = 1.0;
+  col.a = 0.25; // Low opacity for true background effect
   gl_FragColor = col;
 }
 `;
@@ -191,7 +191,7 @@ const initSilk = () => {
   gl.canvas.style.position = 'absolute';
   gl.canvas.style.top = '0';
   gl.canvas.style.left = '0';
-  gl.canvas.style.zIndex = '1';
+  gl.canvas.style.zIndex = '0';
 
   let lastTime = 0;
   const update = (t: number) => {

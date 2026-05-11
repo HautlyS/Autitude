@@ -451,7 +451,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-CRO73qkH.mjs')
+    component: () => import('./index-BG7U7vC2.mjs')
   },
   {
     name: "sobre",
@@ -476,7 +476,7 @@ const _routes = [
   {
     name: "servicos",
     path: "/servicos",
-    component: () => import('./servicos-DHKy42bO.mjs')
+    component: () => import('./servicos-BoBXCeTz.mjs')
   },
   {
     name: "slug",
@@ -1009,41 +1009,41 @@ const _sfc_main$4 = {
         class: "accessibility-panel",
         role: "region",
         "aria-label": "Controles de acessibilidade"
-      }, _attrs))} data-v-ab91caa5><button id="a11y-toggle" class="a11y-btn-floating" aria-label="Abrir menu de acessibilidade"${ssrRenderAttr("aria-expanded", menuOpen.value)} data-v-ab91caa5>`);
+      }, _attrs))} data-v-5d3ca4bc><button id="a11y-toggle" class="a11y-btn-floating" aria-label="Abrir menu de acessibilidade"${ssrRenderAttr("aria-expanded", menuOpen.value)} data-v-5d3ca4bc>`);
       _push(ssrRenderComponent(unref(Settings), { size: 24 }, null, _parent));
-      _push(`<span class="a11y-label" data-v-ab91caa5>Acessibilidade</span></button>`);
+      _push(`<span class="a11y-label" data-v-5d3ca4bc>Acessibilidade</span></button>`);
       ssrRenderTeleport(_push, (_push2) => {
         if (menuOpen.value) {
-          _push2(`<div class="a11y-overlay" data-v-ab91caa5></div>`);
+          _push2(`<div class="a11y-overlay" data-v-5d3ca4bc></div>`);
         } else {
           _push2(`<!---->`);
         }
         if (menuOpen.value) {
-          _push2(`<div id="a11y-menu" class="a11y-menu" role="dialog" aria-modal="true" aria-labelledby="a11y-menu-title" data-v-ab91caa5><div class="a11y-menu-header" data-v-ab91caa5><h3 id="a11y-menu-title" data-v-ab91caa5>Configurações</h3><button id="a11y-close" class="a11y-close-btn" aria-label="Fechar menu" data-v-ab91caa5>`);
+          _push2(`<div id="a11y-menu" class="a11y-menu" role="dialog" aria-modal="true" aria-labelledby="a11y-menu-title" data-v-5d3ca4bc><div class="a11y-menu-header" data-v-5d3ca4bc><h3 id="a11y-menu-title" data-v-5d3ca4bc>Configurações</h3><button id="a11y-close" class="a11y-close-btn" aria-label="Fechar menu" data-v-5d3ca4bc>`);
           _push2(ssrRenderComponent(unref(X), { size: 24 }, null, _parent));
-          _push2(`</button></div><div class="a11y-menu-content" data-v-ab91caa5><div class="a11y-section" data-v-ab91caa5><h4 data-v-ab91caa5>Modo Escuro</h4><button id="a11y-dark-toggle" class="${ssrRenderClass([{ "dark-active": isDarkMode.value }, "a11y-dark-toggle"])}"${ssrRenderAttr("aria-pressed", isDarkMode.value)} data-v-ab91caa5><span class="toggle-track" data-v-ab91caa5><span class="toggle-thumb" data-v-ab91caa5>`);
+          _push2(`</button></div><div class="a11y-menu-content" data-v-5d3ca4bc><div class="a11y-section" data-v-5d3ca4bc><h4 data-v-5d3ca4bc>Modo Escuro</h4><button id="a11y-dark-toggle" class="${ssrRenderClass([{ "dark-active": isDarkMode.value }, "a11y-dark-toggle"])}"${ssrRenderAttr("aria-pressed", isDarkMode.value)} data-v-5d3ca4bc><span class="toggle-track" data-v-5d3ca4bc><span class="toggle-thumb" data-v-5d3ca4bc>`);
           if (isDarkMode.value) {
             _push2(ssrRenderComponent(unref(Sun), { size: 14 }, null, _parent));
           } else {
             _push2(ssrRenderComponent(unref(Moon), { size: 14 }, null, _parent));
           }
-          _push2(`</span></span><span class="toggle-label" data-v-ab91caa5>${ssrInterpolate(isDarkMode.value ? "Modo Escuro" : "Modo Claro")}</span></button></div><div class="a11y-section" data-v-ab91caa5><h4 data-v-ab91caa5>Tamanho da Fonte</h4><div class="a11y-font-controls" data-v-ab91caa5><button id="a11y-font-decrease" class="a11y-btn a11y-btn-icon" aria-label="Diminuir fonte" data-v-ab91caa5>`);
+          _push2(`</span></span><span class="toggle-label" data-v-5d3ca4bc>${ssrInterpolate(isDarkMode.value ? "Modo Escuro" : "Modo Claro")}</span></button></div><div class="a11y-section" data-v-5d3ca4bc><h4 data-v-5d3ca4bc>Tamanho da Fonte</h4><div class="a11y-font-controls" data-v-5d3ca4bc><button id="a11y-font-decrease" class="a11y-btn a11y-btn-icon" aria-label="Diminuir fonte" data-v-5d3ca4bc>`);
           _push2(ssrRenderComponent(unref(Minus), { size: 20 }, null, _parent));
-          _push2(`</button><span id="a11y-font-size" class="a11y-font-value" aria-live="polite" data-v-ab91caa5>${ssrInterpolate(fontSize.value)}%</span><button id="a11y-font-increase" class="a11y-btn a11y-btn-icon" aria-label="Aumentar fonte" data-v-ab91caa5>`);
+          _push2(`</button><span id="a11y-font-size" class="a11y-font-value" aria-live="polite" data-v-5d3ca4bc>${ssrInterpolate(fontSize.value)}%</span><button id="a11y-font-increase" class="a11y-btn a11y-btn-icon" aria-label="Aumentar fonte" data-v-5d3ca4bc>`);
           _push2(ssrRenderComponent(unref(Plus), { size: 20 }, null, _parent));
-          _push2(`</button></div></div><div class="a11y-section" data-v-ab91caa5><h4 data-v-ab91caa5>Contraste</h4><div class="a11y-contrast-controls" data-v-ab91caa5><button id="a11y-contrast-normal" class="${ssrRenderClass([{ "a11y-active": contrastMode.value === "normal" }, "a11y-btn"])}" data-v-ab91caa5>Normal</button><button id="a11y-contrast-high" class="${ssrRenderClass([{ "a11y-active": contrastMode.value === "high" }, "a11y-btn"])}" data-v-ab91caa5>Alto</button><button id="a11y-contrast-dark" class="${ssrRenderClass([{ "a11y-active": contrastMode.value === "dark" }, "a11y-btn"])}" data-v-ab91caa5>Escuro</button></div></div><div class="a11y-section" data-v-ab91caa5><h4 data-v-ab91caa5>Leitor de Tela (TTS)</h4><p class="a11y-hint" data-v-ab91caa5>Lê o conteúdo principal da página em voz alta</p><div class="a11y-tts-status" role="status" aria-live="polite" data-v-ab91caa5>${ssrInterpolate(ttsStatus.value)}</div><div class="a11y-btn-group" data-v-ab91caa5><button id="a11y-tts-play" class="${ssrRenderClass([{ "a11y-active": speaking.value }, "a11y-btn"])}" aria-label="Reproduzir texto da página" data-v-ab91caa5>`);
+          _push2(`</button></div></div><div class="a11y-section" data-v-5d3ca4bc><h4 data-v-5d3ca4bc>Contraste</h4><div class="a11y-contrast-controls" data-v-5d3ca4bc><button id="a11y-contrast-normal" class="${ssrRenderClass([{ "a11y-active": contrastMode.value === "normal" }, "a11y-btn"])}" data-v-5d3ca4bc>Normal</button><button id="a11y-contrast-high" class="${ssrRenderClass([{ "a11y-active": contrastMode.value === "high" }, "a11y-btn"])}" data-v-5d3ca4bc>Alto</button><button id="a11y-contrast-dark" class="${ssrRenderClass([{ "a11y-active": contrastMode.value === "dark" }, "a11y-btn"])}" data-v-5d3ca4bc>Escuro</button></div></div><div class="a11y-section" data-v-5d3ca4bc><h4 data-v-5d3ca4bc>Leitor de Tela (TTS)</h4><p class="a11y-hint" data-v-5d3ca4bc>Lê o conteúdo principal da página em voz alta</p><div class="a11y-tts-status" role="status" aria-live="polite" data-v-5d3ca4bc>${ssrInterpolate(ttsStatus.value)}</div><div class="a11y-btn-group" data-v-5d3ca4bc><button id="a11y-tts-play" class="${ssrRenderClass([{ "a11y-active": speaking.value }, "a11y-btn"])}" aria-label="Reproduzir texto da página" data-v-5d3ca4bc>`);
           _push2(ssrRenderComponent(unref(Play), { size: 18 }, null, _parent));
-          _push2(` ${ssrInterpolate(speaking.value ? "Pausar" : "Ler Página")}</button><button id="a11y-tts-stop" class="a11y-btn" aria-label="Parar leitura completamente"${ssrIncludeBooleanAttr(!speaking.value) ? " disabled" : ""} data-v-ab91caa5>`);
+          _push2(` ${ssrInterpolate(speaking.value ? "Pausar" : "Ler Página")}</button><button id="a11y-tts-stop" class="a11y-btn" aria-label="Parar leitura completamente"${ssrIncludeBooleanAttr(!speaking.value) ? " disabled" : ""} data-v-5d3ca4bc>`);
           _push2(ssrRenderComponent(unref(Square), { size: 18 }, null, _parent));
-          _push2(` Parar </button></div></div><div class="a11y-section" data-v-ab91caa5><h4 data-v-ab91caa5>Libras (VLibras)</h4><p class="a11y-hint" data-v-ab91caa5>Traduz o conteúdo para Língua Brasileira de Sinais</p>`);
+          _push2(` Parar </button></div></div><div class="a11y-section" data-v-5d3ca4bc><h4 data-v-5d3ca4bc>Libras (VLibras)</h4><p class="a11y-hint" data-v-5d3ca4bc>Traduz o conteúdo para Língua Brasileira de Sinais</p>`);
           if (vlibrasStatus.value) {
-            _push2(`<div class="a11y-vlibras-status" role="status" data-v-ab91caa5>${ssrInterpolate(vlibrasStatus.value)}</div>`);
+            _push2(`<div class="a11y-vlibras-status" role="status" data-v-5d3ca4bc>${ssrInterpolate(vlibrasStatus.value)}</div>`);
           } else {
             _push2(`<!---->`);
           }
-          _push2(`<button id="a11y-vlibras-toggle" class="${ssrRenderClass([{ "a11y-active": vlibrasEnabled.value }, "a11y-btn a11y-btn-vlibras"])}" data-v-ab91caa5>`);
+          _push2(`<button id="a11y-vlibras-toggle" class="${ssrRenderClass([{ "a11y-active": vlibrasEnabled.value }, "a11y-btn a11y-btn-vlibras"])}" data-v-5d3ca4bc>`);
           _push2(ssrRenderComponent(unref(Globe), { size: 18 }, null, _parent));
-          _push2(` ${ssrInterpolate(vlibrasEnabled.value ? "Desativar VLibras" : "Ativar VLibras")}</button></div><div class="a11y-section" data-v-ab91caa5><h4 data-v-ab91caa5>Navegação por Teclado</h4><p class="a11y-hint" data-v-ab91caa5>Use Tab para navegar, Enter para selecionar</p><ul class="a11y-shortcuts" data-v-ab91caa5><li data-v-ab91caa5><kbd data-v-ab91caa5>Tab</kbd> Próximo elemento</li><li data-v-ab91caa5><kbd data-v-ab91caa5>Shift+Tab</kbd> Elemento anterior</li><li data-v-ab91caa5><kbd data-v-ab91caa5>Enter</kbd> Ativar link/botão</li><li data-v-ab91caa5><kbd data-v-ab91caa5>Esc</kbd> Fechar menu</li></ul></div></div></div>`);
+          _push2(` ${ssrInterpolate(vlibrasEnabled.value ? "Desativar VLibras" : "Ativar VLibras")}</button></div><div class="a11y-section" data-v-5d3ca4bc><h4 data-v-5d3ca4bc>Navegação por Teclado</h4><p class="a11y-hint" data-v-5d3ca4bc>Use Tab para navegar, Enter para selecionar</p><ul class="a11y-shortcuts" data-v-5d3ca4bc><li data-v-5d3ca4bc><kbd data-v-5d3ca4bc>Tab</kbd> Próximo elemento</li><li data-v-5d3ca4bc><kbd data-v-5d3ca4bc>Shift+Tab</kbd> Elemento anterior</li><li data-v-5d3ca4bc><kbd data-v-5d3ca4bc>Enter</kbd> Ativar link/botão</li><li data-v-5d3ca4bc><kbd data-v-5d3ca4bc>Esc</kbd> Fechar menu</li></ul></div></div></div>`);
         } else {
           _push2(`<!---->`);
         }
@@ -1058,7 +1058,7 @@ _sfc_main$4.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/AccessibilityWidget.vue");
   return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
 };
-const __nuxt_component_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-ab91caa5"]]);
+const __nuxt_component_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-5d3ca4bc"]]);
 const firstNonUndefined = (...args) => args.find((arg) => arg !== void 0);
 // @__NO_SIDE_EFFECTS__
 function defineNuxtLink(options) {
@@ -1350,8 +1350,7 @@ const _sfc_main$3 = {
     const themes = [
       { value: "light", label: "Claro", icon: "☀️" },
       { value: "dark", label: "Escuro", icon: "🌙" },
-      { value: "sepia", label: "Sépia", icon: "📜" },
-      { value: "white", label: "Branco", icon: "⬜" }
+      { value: "sepia", label: "Sépia", icon: "📜" }
     ];
     const currentTheme = computed(() => colorMode.value);
     return (_ctx, _push, _parent, _attrs) => {
@@ -1359,7 +1358,7 @@ const _sfc_main$3 = {
         class: "theme-switcher",
         "aria-label": `Tema atual: ${themes.find((t) => t.value === unref(currentTheme))?.label}. Clique para mudar.`,
         title: `Mudar tema: ${themes.find((t) => t.value === unref(currentTheme))?.label}`
-      }, _attrs))} data-v-1fb55e6a><span class="theme-icon" data-v-1fb55e6a>${ssrInterpolate(themes.find((t) => t.value === unref(currentTheme))?.icon)}</span><span class="theme-label" data-v-1fb55e6a>${ssrInterpolate(themes.find((t) => t.value === unref(currentTheme))?.label)}</span></button>`);
+      }, _attrs))} data-v-2dea53ff><span class="theme-icon" data-v-2dea53ff>${ssrInterpolate(themes.find((t) => t.value === unref(currentTheme))?.icon)}</span><span class="theme-label" data-v-2dea53ff>${ssrInterpolate(themes.find((t) => t.value === unref(currentTheme))?.label)}</span></button>`);
     };
   }
 };
@@ -1369,7 +1368,7 @@ _sfc_main$3.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/ThemeSwitcher.vue");
   return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
 };
-const __nuxt_component_2 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-1fb55e6a"]]);
+const __nuxt_component_2 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-2dea53ff"]]);
 const defineRouteProvider = (name = "RouteProvider") => defineComponent({
   name,
   props: {

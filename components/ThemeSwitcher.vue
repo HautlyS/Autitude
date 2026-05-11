@@ -4,8 +4,7 @@ const colorMode = useColorMode()
 const themes = [
   { value: 'light', label: 'Claro', icon: '☀️' },
   { value: 'dark', label: 'Escuro', icon: '🌙' },
-  { value: 'sepia', label: 'Sépia', icon: '📜' },
-  { value: 'white', label: 'Branco', icon: '⬜' }
+  { value: 'sepia', label: 'Sépia', icon: '📜' }
 ]
 
 const currentTheme = computed(() => colorMode.value)
@@ -76,14 +75,14 @@ const toggleTheme = () => {
   }
 }
 
-/* White theme explicit styling */
-[data-theme="white"] .theme-switcher {
+/* Light theme explicit styling */
+[data-theme="light"] .theme-switcher {
   background: #ffffff;
   border-color: rgba(123, 92, 191, 0.12);
   color: #1a1a2e;
 }
 
-[data-theme="white"] .theme-switcher:hover {
+[data-theme="light"] .theme-switcher:hover {
   background: #7B5CBF;
   border-color: #7B5CBF;
   color: #ffffff;

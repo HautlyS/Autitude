@@ -207,18 +207,24 @@ const processSteps = [
   padding-bottom: 4rem;
   position: relative;
   overflow: hidden;
-  min-height: 400px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .hero-bg-grid {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 .hero-section .container {
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .section-header {
@@ -251,8 +257,7 @@ const processSteps = [
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
-  max-width: 1000px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .service-card-main {

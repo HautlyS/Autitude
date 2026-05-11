@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     preference: 'light',
     fallback: 'light',
     classSuffix: '',
-    preferClass: false,
+    preferClass: true,
     storageKey: 'nuxt-color-mode',
     thresholds: {
       dark: 0.5,
@@ -23,7 +23,6 @@ export default defineNuxtConfig({
     },
     value: {
       light: 'light',
-      white: 'white',
       dark: 'dark',
       sepia: 'sepia'
     }
