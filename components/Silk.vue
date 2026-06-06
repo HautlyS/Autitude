@@ -101,6 +101,15 @@ void main() {
 }
 `;
 
+const isWebGLAvailable = () => {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl'));
+  } catch {
+    return false;
+  }
+};
+
 let renderer: Renderer | null = null;
 let mesh: Mesh | null = null;
 let program: Program | null = null;
@@ -110,11 +119,17 @@ let animateId = 0;
 const initSilk = () => {
   const container = containerRef.value;
   if (!container) return;
+  if (!isWebGLAvailable()) return;
 
-  renderer = new Renderer({
-    alpha: true,
-    antialias: true
-  });
+  try {
+    renderer = new Renderer({
+      alpha: true,
+      antialias: true
+    });
+  } catch {
+    console.warn('[Silk] WebGL unavailable, skipping background effect.');
+    return;
+  }
 
   const gl = renderer.gl;
   gl.clearColor(0, 0, 0, 0);

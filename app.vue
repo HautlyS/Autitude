@@ -42,7 +42,7 @@ onMounted(() => {
     <nav class="navbar">
       <div class="nav-container">
         <NuxtLink to="/" class="logo" @click="closeMenu">
-          <img :src="`${siteBase}/small-logo.png`" alt="Autitude" class="logo-img">
+          <img :src="`${config.public.basePath || '/Autitude/'}/small-logo.png`" alt="Autitude" class="logo-img">
           <span class="logo-text">Autitude</span>
         </NuxtLink>
         
@@ -73,7 +73,7 @@ onMounted(() => {
         <div class="footer-grid">
           <div class="footer-brand">
             <NuxtLink to="/" class="logo">
-              <img :src="`${siteBase}/small-logo.png`" alt="Autitude" class="logo-img">
+              <img :src="`${config.public.basePath || '/Autitude/'}/small-logo.png`" alt="Autitude" class="logo-img">
               <span class="logo-text">Autitude</span>
             </NuxtLink>
             <p>Desenvolvimento com acolhimento, ciência e humanidade. Cuidamos de pessoas. Potencializamos possibilidades.</p>

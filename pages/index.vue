@@ -10,7 +10,7 @@ import MagicRings from '~/components/MagicRings.vue'
 const config = useRuntimeConfig()
 const siteBase = config.public.siteBase || 'https://hautlys.github.io/Autitude'
 const fullLogoUrl = `${siteBase}/full-logo.png`
-const heroLogoUrl = `${siteBase}/full-logo-no-bg.png`
+const heroLogoUrl = '/full-logo-no-bg.png'
 const whatsappUrl = 'https://wa.me/5512991968683'
 
 useHead({
@@ -429,20 +429,29 @@ const services = [
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding-left: clamp(1.25rem, 4vw, 3rem);
+  padding-right: clamp(1.25rem, 4vw, 3rem);
 }
 
 .hero-wrapper {
   display: grid;
-  grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1fr);
-  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
   position: relative;
   z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .hero-content {
-  max-width: clamp(320px, 32vw, 480px);
+  max-width: 380px;
   text-align: left;
+  justify-self: start;
 }
 
 /* Staggered entrance — reuses the global fadeInUp from main.css */
@@ -788,6 +797,7 @@ const services = [
 
   .hero-content {
     max-width: 100%;
+    justify-self: stretch;
   }
 
   .hero-actions {

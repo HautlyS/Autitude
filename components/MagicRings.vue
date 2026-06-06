@@ -146,10 +146,20 @@ let renderer: THREE.WebGLRenderer | null = null;
 let frameId = 0;
 let ro: ResizeObserver | null = null;
 
+const isWebGLAvailable = () => {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl'));
+  } catch {
+    return false;
+  }
+};
+
 const cleanupFns: (() => void)[] = [];
 onMounted(() => {
   const mount = mountRef.value;
   if (!mount) return;
+  if (!isWebGLAvailable()) return;
 
   try {
     renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -157,8 +167,8 @@ onMounted(() => {
     return;
   }
 
-  if (!renderer.capabilities.isWebGL2) {
-    renderer.dispose();
+  if (!renderer || !renderer.capabilities?.isWebGL2) {
+    renderer?.dispose();
     return;
   }
 

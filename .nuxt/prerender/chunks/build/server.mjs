@@ -477,7 +477,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-DcAcV1Aa.mjs')
+    component: () => import('./index-DlO-cs8c.mjs')
   },
   {
     name: "sobre",
@@ -1516,7 +1516,7 @@ const _sfc_main$2 = {
   setup(__props) {
     const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
     const config = /* @__PURE__ */ useRuntimeConfig();
-    const siteBase = config.public.siteBase || "https://hautlys.github.io/Autitude";
+    config.public.siteBase || "https://hautlys.github.io/Autitude";
     const menuOpen = ref(false);
     const config_data = {
       whatsappUrl: "https://wa.me/5512991968683",
@@ -1531,9 +1531,9 @@ const _sfc_main$2 = {
       const _component_NuxtLink = __nuxt_component_0;
       const _component_ThemeSwitcher = __nuxt_component_2;
       const _component_NuxtPage = __nuxt_component_3;
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "app" }, _attrs))} data-v-f08394f6><a href="#main" class="skip-link" data-v-f08394f6>Pular para o conteúdo principal</a>`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "app" }, _attrs))} data-v-17bad717><a href="#main" class="skip-link" data-v-17bad717>Pular para o conteúdo principal</a>`);
       _push(ssrRenderComponent(_component_AccessibilityWidget, null, null, _parent));
-      _push(`<div class="ambient-bg" data-v-f08394f6></div><div class="${ssrRenderClass([{ active: menuOpen.value }, "menu-overlay"])}" data-v-f08394f6></div><nav class="navbar" data-v-f08394f6><div class="nav-container" data-v-f08394f6>`);
+      _push(`<div class="ambient-bg" data-v-17bad717></div><div class="${ssrRenderClass([{ active: menuOpen.value }, "menu-overlay"])}" data-v-17bad717></div><nav class="navbar" data-v-17bad717><div class="nav-container" data-v-17bad717>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/",
         class: "logo",
@@ -1541,11 +1541,11 @@ const _sfc_main$2 = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttr("src", `${unref(siteBase)}/small-logo.png`)} alt="Autitude" class="logo-img" data-v-f08394f6${_scopeId}><span class="logo-text" data-v-f08394f6${_scopeId}>Autitude</span>`);
+            _push2(`<img${ssrRenderAttr("src", `${unref(config).public.basePath || "/Autitude/"}/small-logo.png`)} alt="Autitude" class="logo-img" data-v-17bad717${_scopeId}><span class="logo-text" data-v-17bad717${_scopeId}>Autitude</span>`);
           } else {
             return [
               createVNode("img", {
-                src: `${unref(siteBase)}/small-logo.png`,
+                src: `${unref(config).public.basePath || "/Autitude/"}/small-logo.png`,
                 alt: "Autitude",
                 class: "logo-img"
               }, null, 8, ["src"]),
@@ -1555,7 +1555,7 @@ const _sfc_main$2 = {
         }),
         _: 1
       }, _parent));
-      _push(`<div class="${ssrRenderClass([{ "nav-active": menuOpen.value }, "nav-links"])}" data-v-f08394f6>`);
+      _push(`<div class="${ssrRenderClass([{ "nav-active": menuOpen.value }, "nav-links"])}" data-v-17bad717>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/",
         class: "nav-link",
@@ -1653,20 +1653,20 @@ const _sfc_main$2 = {
         _: 1
       }, _parent));
       _push(ssrRenderComponent(_component_ThemeSwitcher, null, null, _parent));
-      _push(`</div><button class="${ssrRenderClass([{ active: menuOpen.value }, "menu-toggle"])}" aria-label="Menu"${ssrRenderAttr("aria-expanded", menuOpen.value)} data-v-f08394f6><span data-v-f08394f6></span><span data-v-f08394f6></span><span data-v-f08394f6></span></button></div></nav><main id="main" data-v-f08394f6>`);
+      _push(`</div><button class="${ssrRenderClass([{ active: menuOpen.value }, "menu-toggle"])}" aria-label="Menu"${ssrRenderAttr("aria-expanded", menuOpen.value)} data-v-17bad717><span data-v-17bad717></span><span data-v-17bad717></span><span data-v-17bad717></span></button></div></nav><main id="main" data-v-17bad717>`);
       _push(ssrRenderComponent(_component_NuxtPage, null, null, _parent));
-      _push(`</main><footer class="footer" data-v-f08394f6><div class="container" data-v-f08394f6><div class="footer-grid" data-v-f08394f6><div class="footer-brand" data-v-f08394f6>`);
+      _push(`</main><footer class="footer" data-v-17bad717><div class="container" data-v-17bad717><div class="footer-grid" data-v-17bad717><div class="footer-brand" data-v-17bad717>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/",
         class: "logo"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttr("src", `${unref(siteBase)}/small-logo.png`)} alt="Autitude" class="logo-img" data-v-f08394f6${_scopeId}><span class="logo-text" data-v-f08394f6${_scopeId}>Autitude</span>`);
+            _push2(`<img${ssrRenderAttr("src", `${unref(config).public.basePath || "/Autitude/"}/small-logo.png`)} alt="Autitude" class="logo-img" data-v-17bad717${_scopeId}><span class="logo-text" data-v-17bad717${_scopeId}>Autitude</span>`);
           } else {
             return [
               createVNode("img", {
-                src: `${unref(siteBase)}/small-logo.png`,
+                src: `${unref(config).public.basePath || "/Autitude/"}/small-logo.png`,
                 alt: "Autitude",
                 class: "logo-img"
               }, null, 8, ["src"]),
@@ -1676,7 +1676,7 @@ const _sfc_main$2 = {
         }),
         _: 1
       }, _parent));
-      _push(`<p data-v-f08394f6>Desenvolvimento com acolhimento, ciência e humanidade. Cuidamos de pessoas. Potencializamos possibilidades.</p></div><div class="footer-links" data-v-f08394f6><h4 data-v-f08394f6>Navegação</h4>`);
+      _push(`<p data-v-17bad717>Desenvolvimento com acolhimento, ciência e humanidade. Cuidamos de pessoas. Potencializamos possibilidades.</p></div><div class="footer-links" data-v-17bad717><h4 data-v-17bad717>Navegação</h4>`);
       _push(ssrRenderComponent(_component_NuxtLink, { to: "/" }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
@@ -1725,7 +1725,7 @@ const _sfc_main$2 = {
         }),
         _: 1
       }, _parent));
-      _push(`</div><div class="footer-services" data-v-f08394f6><h4 data-v-f08394f6>Atendimento</h4>`);
+      _push(`</div><div class="footer-services" data-v-17bad717><h4 data-v-17bad717>Atendimento</h4>`);
       _push(ssrRenderComponent(_component_NuxtLink, { to: "/agendar" }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
@@ -1750,7 +1750,7 @@ const _sfc_main$2 = {
         }),
         _: 1
       }, _parent));
-      _push(`<a${ssrRenderAttr("href", config_data.whatsappUrl)} data-v-f08394f6>WhatsApp</a><a${ssrRenderAttr("href", config_data.instagramUrl)} target="_blank" rel="noopener" data-v-f08394f6>Instagram</a></div><div class="footer-contact" data-v-f08394f6><h4 data-v-f08394f6>Localização</h4><p data-v-f08394f6>Rua Major José dos Santos Moreira, 328</p><p data-v-f08394f6>Vila Rica — Pindamonhangaba, SP</p><p data-v-f08394f6>Seg a Sex: 8h às 18h</p><div class="footer-map" data-v-f08394f6><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.523716039893!2d-45.46558491270433!3d-22.93093188518779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ccf1835a97b90d%3A0x8c2cb7aa78bd7f92!2sAutitude%20Desenvolvimento%20e%20A%C3%A7%C3%A3o%20Humana!5e0!3m2!1sen!2sbr!4v1780604277186!5m2!1sen!2sbr" width="100%" height="180" style="${ssrRenderStyle({ "border": "0", "border-radius": "8px" })}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da Autitude — Rua Major José dos Santos Moreira, 328, Vila Rica, Pindamonhangaba-SP" data-v-f08394f6></iframe></div></div></div><div class="footer-bottom" data-v-f08394f6><p data-v-f08394f6>© ${ssrInterpolate(unref(currentYear))} Autitude. Todos os direitos reservados.</p></div></div></footer></div>`);
+      _push(`<a${ssrRenderAttr("href", config_data.whatsappUrl)} data-v-17bad717>WhatsApp</a><a${ssrRenderAttr("href", config_data.instagramUrl)} target="_blank" rel="noopener" data-v-17bad717>Instagram</a></div><div class="footer-contact" data-v-17bad717><h4 data-v-17bad717>Localização</h4><p data-v-17bad717>Rua Major José dos Santos Moreira, 328</p><p data-v-17bad717>Vila Rica — Pindamonhangaba, SP</p><p data-v-17bad717>Seg a Sex: 8h às 18h</p><div class="footer-map" data-v-17bad717><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.523716039893!2d-45.46558491270433!3d-22.93093188518779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ccf1835a97b90d%3A0x8c2cb7aa78bd7f92!2sAutitude%20Desenvolvimento%20e%20A%C3%A7%C3%A3o%20Humana!5e0!3m2!1sen!2sbr!4v1780604277186!5m2!1sen!2sbr" width="100%" height="180" style="${ssrRenderStyle({ "border": "0", "border-radius": "8px" })}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da Autitude — Rua Major José dos Santos Moreira, 328, Vila Rica, Pindamonhangaba-SP" data-v-17bad717></iframe></div></div></div><div class="footer-bottom" data-v-17bad717><p data-v-17bad717>© ${ssrInterpolate(unref(currentYear))} Autitude. Todos os direitos reservados.</p></div></div></footer></div>`);
     };
   }
 };
@@ -1760,7 +1760,7 @@ _sfc_main$2.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("app.vue");
   return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
 };
-const AppComponent = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-f08394f6"]]);
+const AppComponent = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-17bad717"]]);
 const _sfc_main$1 = {
   __name: "nuxt-error-page",
   __ssrInlineRender: true,

@@ -137,9 +137,19 @@ const pointerTargetRef = ref(new THREE.Vector2(0, 0));
 const pointerCurrentRef = ref(new THREE.Vector2(0, 0));
 const pointerSmoothRef = ref(8);
 
+const isWebGLAvailable = () => {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl'));
+  } catch {
+    return false;
+  }
+};
+
 let cleanup: (() => void) | null = null;
 
 const setup = () => {
+  if (!isWebGLAvailable()) return;
   const container = containerRef.value!;
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -174,11 +184,17 @@ const setup = () => {
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
-  const renderer = new THREE.WebGLRenderer({
-    antialias: false,
-    powerPreference: 'high-performance',
-    alpha: true
-  });
+  let renderer: THREE.WebGLRenderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      powerPreference: 'high-performance',
+      alpha: true
+    });
+  } catch {
+    console.warn('[ColorBends] WebGL unavailable, skipping effect.');
+    return;
+  }
   rendererRef.value = renderer;
   (renderer as any).outputColorSpace = (THREE as any).SRGBColorSpace;
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
